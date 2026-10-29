@@ -410,6 +410,90 @@ La graisse animale fondue (Tallow / Suif / Graisse de mouton épurée) est une t
 - **Synergie Culinaire :** Une seule cuillère à soupe de ghee ou de suif ajoutée à une gamelle de lentilles ou de pois chiches bouillis double sa valeur énergétique et assure la satiété des 8 personnes du foyer pour des heures.
 - **Usage Thérapeutique d'Urgence :** Le ghee ou la graisse animale pure non salée constitue un excellent cicatrisant naturel et baume pour les lèvres gercées, peaux brûlées ou mains crevassées par le froid.
     `
+  },
+  {
+    id: 9,
+    title: "Réseau Wi-Fi & Mesh Bluetooth Hors-Ligne (Notice Inter-Smartphones)",
+    category: "COMMS",
+    icon: "wifi_tethering",
+    lvl: "NIV 02",
+    status: 90,
+    desc: "Communication, messagerie locale et alertes entre smartphones en cas de coupure 4G/Internet totale.",
+    content: `
+# Notice Opérationnelle : Réseau Wi-Fi & Mesh Bluetooth entre Smartphones (Zéro Internet)
+
+En cas de crise majeure (séisme, panne de réseau national, blackout électrique), les antennes relais 4G/5G cessent de fonctionner sous 2 à 4 heures par épuisement de leurs batteries de secours.
+
+Vos smartphones restent pourtant des outils radioélectriques surpuissants équipés de puces **Wi-Fi** et **Bluetooth**. Voici la méthode pour les relier et communiquer entre les étages de l'immeuble R+3 et lors des sorties extérieures.
+
+---
+
+## 1. Méthode 1 : Le Réseau "Mesh" Bluetooth P2P (De Téléphone à Téléphone)
+
+Le réseau maillé (Mesh) ne nécessite **aucun routeur, aucune box, aucune carte SIM et aucun réseau cellulaire**. Chaque smartphone devient lui-même une antenne relais qui transmet les messages de proche en proche.
+
+### 📱 Applications Recommandées (100% Hors-Ligne) :
+1. **Briar (Android / PC) :** Référence mondiale de sécurité civile. Chiffrement de bout en bout peer-to-peer. Les messages transitent par Bluetooth et Wi-Fi local.
+2. **Bridgefy (Android & iOS) :** Permet de tchatter en Bluetooth hors-ligne jusqu'à 100 mètres en champ libre, avec retransmission automatique par rebonds entre les appareils membres.
+
+### ⚙️ Procédure d'Installation & Connexion :
+1. **Activer le Bluetooth :** Sur chaque smartphone de la famille.
+2. **Ajout des Contacts en Direct (Avant la crise) :**
+   - Ouvrez l'application.
+   - Choisissez "Ajouter un contact à proximité".
+   - Scannez mutuellement les QR Codes affichés sur les écrans.
+   - Vos téléphones sont désormais appairés de façon permanente et chiffrée.
+3. **Transmission en Cascade dans l'Immeuble (R+3) :**
+   - Le Bluetooth standard porte à environ 15-20 mètres à travers les planchers.
+   - En disposant un téléphone en veille au 2e étage, un message envoyé depuis la réserve du RDC sautera automatiquement par le 2e étage pour alerter la famille au 3e étage.
+
+### 📦 Astuce Vitale : Comment partager l'application si Internet est déjà coupé ?
+- Téléchargez et conservez le fichier d'installation **Briar.apk** sur une clé USB ou dans la mémoire d'un smartphone.
+- Partagez le fichier APK de téléphone à téléphone via **Bluetooth**, **Wi-Fi Direct** ou **Quick Share (Nearby Share)** en activant "Sources inconnues".
+
+---
+
+## 2. Méthode 2 : La "Bulle Wi-Fi Locale" d'Immeuble (Sans Internet)
+
+Un réseau Wi-Fi local peut être créé au sein du bâtiment même si la fibre ou l'ADSL est totalement coupée. Les téléphones connectés forment un réseau local d'immeuble.
+
+### 🛠️ Matériel Requis (Au choix) :
+- **Option A (Gratuite) :** Un vieux smartphone en mode "Point d'accès mobile / Partage de connexion Wi-Fi" (même sans carte SIM active ni forfait 4G).
+- **Option B (Idéale) :** Votre box internet actuelle branchée sur votre batterie stationnaire 12V/220V, ou un petit routeur Wi-Fi de voyage (TP-Link) alimenté en USB par une simple Powerbank (consommation : seulement 3W à 5W).
+
+### ⚙️ Procédure de Déploiement :
+1. **Nom du Réseau (SSID) :** Nommez le point d'accès \`PREPACRISIS-LOCAL\`.
+2. **Mot de Passe Sécurisé :** Définissez une clé commune connue de toute la famille (ex: \`SecuriteR3Foyer\`).
+3. **Positionnement Stratégique :**
+   - Placez la borne Wi-Fi au **2e étage** (palier ou couloir central).
+   - Les ondes Wi-Fi 2.4 GHz traversent 2 dalles en béton armé, couvrant ainsi du RDC au 3e étage sans répéteur supplémentaire.
+4. **Connexion des Appareils :**
+   - Chaque membre connecte son smartphone au Wi-Fi \`PREPACRISIS-LOCAL\`.
+   - **Important :** Le téléphone affichera un avertissement *"Connecté sans Internet"*. Cliquez sur **"Conserver la connexion"** ou **"Toujours se connecter"**.
+5. **Utilisation :**
+   - Tous les téléphones connectés à ce Wi-Fi partagent la même passerelle locale.
+   - La messagerie locale intégrée de **PrépaCrisis** (système de maillage Broadcast local) transmet instantanément les alertes SOS et messages d'étage à étage.
+
+---
+
+## 3. Méthode 3 : Partage Rapide de Fichiers (Photos de repérage, Cartes & Fiches)
+
+Pour échanger des photos de points d'eau, des cartes satellites hors-ligne ou les fiches d'urgence sans aucune application tierce :
+- **Android :** Utilisez **Quick Share / Nearby Share** (fonctionne en Wi-Fi Direct ultra-rapide à 10 Mo/s sans connexion Internet).
+- **iOS (Apple) :** Utilisez **AirDrop** en mode "Tout le monde pendant 10 minutes".
+
+---
+
+## 4. Protocole d'Économie d'Énergie des Téléphones (Autonomie 72h)
+
+En crise, la recharge électrique est limitée (batterie 1200Wh partagée pour 8 personnes). Appliquez ce protocole strict :
+1. **Mode Avion Activé en permanence :** Empêche le modem 4G de chercher désespérément une antenne relais inexistante (ce qui vide la batterie en 3 heures).
+2. **Réactivation sélective :** Activez **uniquement** le Bluetooth ou le Wi-Fi local selon la méthode choisie.
+3. **Luminosité à 20% :** L'écran est le premier consommateur d'énergie.
+4. **Heures de Vacation Radio/Comms :**
+   - Les téléphones des veilleurs restent en écoute permanente.
+   - Les autres membres allument leur liaison 5 minutes à l'heure pile (ex: 08h00, 12h00, 18h00, 21h00) pour relever les messages d'état sans gaspiller d'énergie.
+    `
   }
 ];
 
