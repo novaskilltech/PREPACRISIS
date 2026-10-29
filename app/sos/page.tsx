@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useAppContext } from '@/components/AppContext';
-import { AlertTriangle, Volume2, VolumeX, Navigation, Copy, MessageSquare, ShieldAlert, Check, PhoneCall } from 'lucide-react';
+import { AlertTriangle, Volume2, VolumeX, Navigation, Copy, MessageSquare, ShieldAlert, Check, PhoneCall, Share2 } from 'lucide-react';
 
 export default function SOSPage() {
   const { addLocalMessage, emergencyPlan } = useAppContext();
@@ -137,13 +137,50 @@ export default function SOSPage() {
     }
   };
 
+  const [shared, setShared] = useState(false);
+
+  const mapsLink = coords
+    ? `https://maps.google.com/?q=${coords.lat.toFixed(6)},${coords.lng.toFixed(6)}`
+    : '';
+
   const smsText = `URGENCE SOS - Famille PrépaCrisis (Maroc) - Besoin d'aide immédiate. Position GPS : ${
     coords ? `${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)} (Précision: ${coords.accuracy}m)` : 'Non fixée'
-  }. Contact ICE: ${emergencyPlan.outOfZoneContactPhone}`;
+  }${mapsLink ? ` - Carte : ${mapsLink}` : ''}${emergencyPlan.outOfZoneContactPhone ? ` - Contact ICE: ${emergencyPlan.outOfZoneContactPhone}` : ''}`;
+
+  const shareText = coords
+    ? `🚨 ALERTE SOS PRÉPACRISIS (MAROC)\nBesoin d'aide immédiate.\n📍 Coordonnées GPS : ${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)} (Précision : ${coords.accuracy}m)\n🗺️ Lien Carte : https://maps.google.com/?q=${coords.lat.toFixed(6)},${coords.lng.toFixed(6)}\nFix relevé le : ${coords.time}`
+    : `🚨 ALERTE SOS PRÉPACRISIS (MAROC)\nBesoin d'aide immédiate.`;
+
+  const handleShareGPS = async () => {
+    if (!coords) {
+      fetchLocation();
+      return;
+    }
+
+    const shareData = {
+      title: '🚨 URGENCE SOS - Position GPS PrépaCrisis',
+      text: shareText,
+      url: mapsLink || undefined,
+    };
+
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share(shareData);
+        setShared(true);
+        setTimeout(() => setShared(false), 3000);
+      } catch (err: any) {
+        if (err.name !== 'AbortError') {
+          copyToClipboard();
+        }
+      }
+    } else {
+      copyToClipboard();
+    }
+  };
 
   const copyToClipboard = () => {
     if (typeof navigator !== 'undefined') {
-      navigator.clipboard.writeText(smsText);
+      navigator.clipboard.writeText(shareText);
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     }
@@ -260,24 +297,34 @@ export default function SOSPage() {
             </div>
           )}
 
-          {/* Actions d'Envoi Direct */}
-          <div className="grid grid-cols-2 gap-2 pt-1">
+          {/* Actions d'Envoi & Partage de Position */}
+          <div className="space-y-2 pt-1">
             <button
-              onClick={copyToClipboard}
-              className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-slate-200 hover:bg-slate-300 text-slate-900 rounded-xl text-xs font-bold border border-slate-300 transition-all cursor-pointer shadow-2xs"
+              onClick={handleShareGPS}
+              className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer active:scale-98"
             >
-              {copied ? <Check size={14} className="text-emerald-700" /> : <Copy size={14} />}
-              <span>{copied ? 'Copié !' : 'Copier Coordonnées'}</span>
+              {shared ? <Check size={16} className="text-white" /> : <Share2 size={16} />}
+              <span>{shared ? 'Position partagée !' : 'Partager la Position GPS (WhatsApp / SMS / Mesh)'}</span>
             </button>
 
-            <a
-              href={`sms:${emergencyPlan.outOfZoneContactPhone}?body=${encodeURIComponent(smsText)}`}
-              style={{ backgroundColor: '#dc2626' }}
-              className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition-all text-center shadow-xs cursor-pointer"
-            >
-              <MessageSquare size={14} />
-              <span>Préparer SMS ICE</span>
-            </a>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={copyToClipboard}
+                className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold border border-slate-200 transition-all cursor-pointer shadow-2xs"
+              >
+                {copied ? <Check size={14} className="text-emerald-700" /> : <Copy size={14} />}
+                <span>{copied ? 'Copié !' : 'Copier Coordonnées'}</span>
+              </button>
+
+              <a
+                href={`sms:${emergencyPlan.outOfZoneContactPhone || ''}?body=${encodeURIComponent(smsText)}`}
+                style={{ backgroundColor: '#dc2626' }}
+                className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition-all text-center shadow-xs cursor-pointer"
+              >
+                <MessageSquare size={14} />
+                <span>Préparer SMS ICE</span>
+              </a>
+            </div>
           </div>
         </div>
 
