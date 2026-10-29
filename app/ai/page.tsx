@@ -6,7 +6,7 @@ import { useAppContext } from '@/components/AppContext';
 type Message = { role: 'user' | 'model'; text: string };
 
 export default function AIPage() {
-  const { familyPlan, score } = useAppContext();
+  const { members, emergencyPlan, score } = useAppContext();
   const [messages, setMessages] = useState<Message[]>([
     { role: 'model', text: '[Analyse de l\'Environnement]\nIntégrité de l\'abri vérifiée. En attente de la prochaine directive pour le renforcement du secteur.' }
   ]);
@@ -40,7 +40,7 @@ export default function AIPage() {
       const systemInstruction = `Tu es Survival Architect AI, un assistant de commandement tactique de mission. 
       Utilise une terminologie militaire/tactique (ex: "Affirmatif", "Opérateur", "Protocole", "Secteur").
       Garde tes réponses concises, structurées et hautement analytiques.
-      Contexte : Score de Préparation = ${score}%. Membres de l'Unité = ${familyPlan.members.length}.`;
+      Contexte : Score de Préparation = ${score}%. Membres de l'Unité = ${members.length}.`;
 
       const chat = ai.chats.create({
         model: 'gemini-3-flash-preview',
