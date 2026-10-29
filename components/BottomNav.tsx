@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Shield, Droplets, Users, AlertTriangle, Radio } from 'lucide-react';
+import { Shield, Droplets, Users, AlertTriangle, PackageCheck } from 'lucide-react';
 
 const navItems = [
-  { href: '/', icon: Shield, label: 'Tableau' },
-  { href: '/checklist', icon: Droplets, label: 'Provisions' },
-  { href: '/family-plan', icon: Users, label: 'Famille' },
+  { href: '/', icon: Shield, label: 'Accueil' },
+  { href: '/water-mission', icon: Droplets, label: 'Eau' },
   { href: '/sos', icon: AlertTriangle, label: 'SOS', isAlert: true },
-  { href: '/radio', icon: Radio, label: 'Radio' },
+  { href: '/checklist', icon: PackageCheck, label: 'Stocks' },
+  { href: '/family-plan', icon: Users, label: 'Famille' },
 ];
 
 export default function BottomNav() {

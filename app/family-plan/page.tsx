@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { useAppContext, FamilyMember, FamilyMemberStatus } from '@/components/AppContext';
 import {
   Users,
@@ -17,9 +16,7 @@ import {
   Trash2,
   BookUser,
   Shield,
-  Droplets,
   ArrowRight,
-  ShieldAlert,
   Edit2,
   CheckCircle2,
   Compass,
@@ -532,31 +529,6 @@ export default function FamilyPlanPage() {
                 </div>
               );
             })}
-
-            {/* Raccourci Mission Eau & Défense R+3 */}
-            <div className="pt-2 grid grid-cols-2 gap-2">
-              <Link
-                href="/water-mission"
-                className="bg-blue-50 border border-blue-200 hover:border-blue-300 rounded-2xl p-3 shadow-xs block transition-all"
-              >
-                <div className="flex items-center gap-1.5 text-blue-800 font-bold text-xs uppercase mb-1">
-                  <Droplets size={14} />
-                  <span>Mission Eau</span>
-                </div>
-                <p className="text-[11px] text-slate-600">30L en 60 min avec 3 membres valides.</p>
-              </Link>
-
-              <Link
-                href="/siege"
-                className="bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-2xl p-3 shadow-xs block transition-all"
-              >
-                <div className="flex items-center gap-1.5 text-slate-800 font-bold text-xs uppercase mb-1">
-                  <ShieldAlert size={14} className="text-rose-600" />
-                  <span>Défense R+3</span>
-                </div>
-                <p className="text-[11px] text-slate-600">Plan anti-intrusion et repli au 3e étage.</p>
-              </Link>
-            </div>
           </div>
         )}
 
