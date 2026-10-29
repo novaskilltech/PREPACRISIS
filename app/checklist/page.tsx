@@ -118,7 +118,7 @@ const shoppingGuideMaroc: {
   f11: {
     store: 'Grossiste épicerie / Atacadão / Marjane / BIM',
     packagingTip: 'Cartons d\'emballage d\'origine de boîtes 400g ou 800g (Haricots blancs/rouges sauce, pois chiches cuits, lentilles).',
-    brandTip: 'Aïcha, Dounia, Bella, Bonduelle. Zéro eau de cuisson requise : consommer l\'eau/jus de la boîte directement.',
+    brandTip: 'Dounia, Bella, Bonduelle ou conserves locales. Zéro eau de cuisson requise : consommer l\'eau/jus de la boîte directement.',
   },
   f12: {
     store: 'Marjane / Carrefour / Atacadão ou Amazon France (stocks longue conservation)',
@@ -305,15 +305,7 @@ export default function ChecklistPage() {
   const [activeCategory, setActiveCategory] = useState<string>('TOUS');
 
   // Journal de troc local
-  const [tradeLog, setTradeLog] = useState<{ id: string; givenHoneyKg: number; receivedItem: string; partner: string; date: string }[]>([
-    {
-      id: '1',
-      givenHoneyKg: 0.5,
-      receivedItem: '10 kg de pommes de terre & oignons',
-      partner: 'Voisin RDC (M. Tazi)',
-      date: 'Exemple',
-    },
-  ]);
+  const [tradeLog, setTradeLog] = useState<{ id: string; givenHoneyKg: number; receivedItem: string; partner: string; date: string }[]>([]);
   const [tradeHoney, setTradeHoney] = useState(0.5);
   const [tradeItem, setTradeItem] = useState('');
   const [tradePartner, setTradePartner] = useState('');

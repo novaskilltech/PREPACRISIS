@@ -354,7 +354,7 @@ const defaultSupplies: SupplyItem[] = [
     targetQuantity: 9,
     unit: 'Sprays',
     critical: true,
-    notes: 'Pour Salma, Amina et Leila. + 2 chambres d\'inhalation.',
+    notes: 'Pour membres asthmatiques / affections respiratoires. + 2 chambres d\'inhalation.',
     checked: false,
   },
   {
@@ -367,15 +367,15 @@ const defaultSupplies: SupplyItem[] = [
     targetQuantity: 48,
     unit: 'Masques',
     critical: true,
-    notes: 'Vital pour les 3 asthmatiques en cas de conflit/frappe urbaine.',
+    notes: 'Vital pour les personnes asthmatiques ou sensibles en cas de fumées/poussières.',
     checked: false,
   },
   {
     id: 's3',
     category: 'SANTÉ',
-    name: 'Protections périodiques (6 femmes du foyer)',
+    name: 'Protections périodiques & hygiène intime',
     nominal14d: '8 paquets (serviettes hygiéniques)',
-    rationed30d: '16 paquets (1 mois complet pour 6 femmes)',
+    rationed30d: '16 paquets (1 mois complet de réserve)',
     quantityAcquired: 6,
     targetQuantity: 16,
     unit: 'Paquets',
@@ -386,7 +386,7 @@ const defaultSupplies: SupplyItem[] = [
   {
     id: 's4',
     category: 'SANTÉ',
-    name: 'Kit Maternité & Accouchement d\'Urgence (Kenza - 6e mois)',
+    name: 'Kit Maternité & Accouchement d\'Urgence',
     nominal14d: '1 trousse obstétrique de base',
     rationed30d: '1 trousse obstétrique complète + compresses stériles',
     quantityAcquired: 1,
@@ -399,7 +399,7 @@ const defaultSupplies: SupplyItem[] = [
   {
     id: 's5',
     category: 'SANTÉ',
-    name: 'Traitement Dépression (Nadia) - Stock de sécurité',
+    name: 'Traitements Médicaux Spécifiques / Chroniques - Stock de sécurité',
     nominal14d: '1 boîte d\'avance',
     rationed30d: '2 boîtes d\'avance (1 mois)',
     quantityAcquired: 1,
@@ -419,7 +419,7 @@ const defaultSupplies: SupplyItem[] = [
     targetQuantity: 12,
     unit: 'Boîtes',
     critical: true,
-    notes: 'Pour douleurs articulaires (Youssef & Nadia) et fièvre.',
+    notes: 'Pour douleurs articulaires, courbatures d\'effort et fièvre.',
     checked: false,
   },
   {
@@ -458,7 +458,7 @@ const defaultSupplies: SupplyItem[] = [
     targetQuantity: 6,
     unit: 'Boîtes',
     critical: true,
-    notes: 'Pour poussées articulaires aiguës (Youssef & Nadia) et inflammations.',
+    notes: 'Pour poussées inflammatoires, traumatismes et douleurs aiguës.',
     checked: false,
   },
   {
@@ -741,7 +741,7 @@ const defaultSupplies: SupplyItem[] = [
   {
     id: 'l3',
     category: 'LOGISTIQUE',
-    name: 'Sangle de portage / Chaise d\'évacuation pour Aïcha (R+3)',
+    name: 'Sangle de portage / Chaise d\'évacuation PMR (R+3)',
     nominal14d: '1 sangle d\'évacuation pompiers',
     rationed30d: '1 sangle robuste pour descente rapide',
     quantityAcquired: 0,
@@ -925,10 +925,31 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
       const savedSupplies = localStorage.getItem('prepa_supplies');
       if (savedSupplies) {
-        const parsed: SupplyItem[] = JSON.parse(savedSupplies);
-        const existingIds = new Set(parsed.map(item => item.id));
-        const missingDefaults = defaultSupplies.filter(item => !existingIds.has(item.id));
-        setSupplies([...parsed, ...missingDefaults]);
+        try {
+          const parsed: SupplyItem[] = JSON.parse(savedSupplies);
+          const defaultMap = new Map(defaultSupplies.map((item) => [item.id, item]));
+          // Mettre à jour les titres et notes pour purger définitivement tout ancien prénom cité
+          const sanitized = parsed.map((item) => {
+            const def = defaultMap.get(item.id);
+            if (def) {
+              return {
+                ...item,
+                name: def.name,
+                notes: def.notes,
+                nominal14d: def.nominal14d,
+                rationed30d: def.rationed30d,
+              };
+            }
+            return item;
+          });
+          const existingIds = new Set(sanitized.map((item) => item.id));
+          const missingDefaults = defaultSupplies.filter((item) => !existingIds.has(item.id));
+          const merged = [...sanitized, ...missingDefaults];
+          localStorage.setItem('prepa_supplies', JSON.stringify(merged));
+          setSupplies(merged);
+        } catch {
+          setSupplies(defaultSupplies);
+        }
       }
 
       const savedWater = localStorage.getItem('prepa_water');

@@ -598,7 +598,7 @@ export default function FamilyPlanPage() {
                       required
                       value={contactName}
                       onChange={(e) => setContactName(e.target.value)}
-                      placeholder="Dr. Alami ou Oncle Omar"
+                      placeholder="Médecin de famille ou Proche référent"
                       className="w-full text-xs p-2 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-blue-500"
                     />
                   </div>

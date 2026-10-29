@@ -45,7 +45,7 @@ export default function SiegePage() {
     gel_poivre_torches_r3: false,
     blackout_fenetres: false,
     discipline_fumee_poele: false,
-    chambre_repli_kenza_aicha: false,
+    chambre_repli_vulnerables: false,
   });
 
   // Chargement localStorage
@@ -379,7 +379,7 @@ export default function SiegePage() {
               {
                 id: 'tampon_sante_r3',
                 label: 'Garder Ventoline et médicaments au 3e étage',
-                sub: 'Pour Salma, Amina et Leila toujours à portée de main',
+                sub: 'Médicaments d\'urgence et soins vitaux toujours à portée de main',
               },
               {
                 id: 'barricade_quai_rdc',

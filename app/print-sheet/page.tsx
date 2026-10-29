@@ -59,7 +59,7 @@ export default function PrintSheetPage() {
                 PRÉPACRISIS — Fiche Réflexe d&apos;Urgence & Survie
               </h1>
               <p className="text-xs text-slate-600 font-medium">
-                Foyer 8 personnes (2 seniors, 4 adultes dont Kenza enceinte 6e mois, 2 ados) • Bâtiment R+3 (Logement 3e étage + Quai RDC)
+                Foyer civil d&apos;urgence • Bâtiment R+3 (Logement 3e étage + Quai RDC)
               </p>
             </div>
             <div className="text-right text-xs font-mono">
