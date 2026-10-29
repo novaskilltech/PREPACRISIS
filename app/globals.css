@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+}
+
+/* ==========================================================================
+   1. THÈME 1 : CLASSIQUE MODERNE (Défaut Familial & Seniors)
+   ========================================================================== */
+:root, [data-theme="moderne"] {
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+}
+
+/* ==========================================================================
+   2. THÈME 2 : MILITAIRE TACTIQUE (Kaki / Olive Drab / Discrétion Nocturne)
+   ========================================================================== */
+[data-theme="tactique"] {
+  --scrollbar-track: #151a14;
+  --scrollbar-thumb: #354232;
+  color-scheme: dark;
+}
+
+[data-theme="tactique"] body {
+  background-color: #121711 !important;
+  color: #dce7d6 !important;
+}
+
+/* Conteneurs et cartes */
+[data-theme="tactique"] .bg-slate-50,
+[data-theme="tactique"] .bg-slate-100 {
+  background-color: #121711 !important;
+}
+
+[data-theme="tactique"] .bg-white {
+  background-color: #1c231a !important;
+}
+
+[data-theme="tactique"] .bg-white\/95,
+[data-theme="tactique"] .bg-white\/90 {
+  background-color: rgba(28, 35, 26, 0.95) !important;
+}
+
+[data-theme="tactique"] .bg-slate-50\/80,
+[data-theme="tactique"] .bg-slate-100\/70,
+[data-theme="tactique"] .bg-slate-100\/80 {
+  background-color: #242e22 !important;
+}
+
+/* Bordures tactiques */
+[data-theme="tactique"] .border-slate-200,
+[data-theme="tactique"] .border-slate-200\/80,
+[data-theme="tactique"] .border-slate-200\/90,
+[data-theme="tactique"] .border-slate-300 {
+  border-color: #374633 !important;
+}
+
+/* Typographies tactiques */
+[data-theme="tactique"] .text-slate-900,
+[data-theme="tactique"] .text-slate-800 {
+  color: #dce7d6 !important;
+}
+
+[data-theme="tactique"] .text-slate-700,
+[data-theme="tactique"] .text-slate-600 {
+  color: #b5c7ae !important;
+}
+
+[data-theme="tactique"] .text-slate-500,
+[data-theme="tactique"] .text-slate-400 {
+  color: #879b81 !important;
+}
+
+/* Accents tactiques (Olive Drab Militaire) */
+[data-theme="tactique"] .bg-blue-600 {
+  background-color: #4a683e !important;
+}
+
+[data-theme="tactique"] .hover\:bg-blue-700:hover,
+[data-theme="tactique"] .hover\:bg-blue-500:hover {
+  background-color: #597d4a !important;
+}
+
+[data-theme="tactique"] .bg-blue-50 {
+  background-color: #253321 !important;
+}
+
+[data-theme="tactique"] .text-blue-700,
+[data-theme="tactique"] .text-blue-600 {
+  color: #b9d4b0 !important;
+}
+
+[data-theme="tactique"] .border-blue-200 {
+  border-color: #44593c !important;
+}
+
+/* Navigation et ombres */
+[data-theme="tactique"] .shadow-xs,
+[data-theme="tactique"] .shadow-sm,
+[data-theme="tactique"] .shadow-md {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ==========================================================================
+   3. THÈME 3 : SURVIVALISTE DE TERRAIN (Charbon Acier & Orange Détresse)
+   ========================================================================== */
+[data-theme="survivaliste"] {
+  --scrollbar-track: #101216;
+  --scrollbar-thumb: #373f4e;
+  color-scheme: dark;
+}
+
+[data-theme="survivaliste"] body {
+  background-color: #0f1217 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Conteneurs et cartes */
+[data-theme="survivaliste"] .bg-slate-50,
+[data-theme="survivaliste"] .bg-slate-100 {
+  background-color: #0f1217 !important;
+}
+
+[data-theme="survivaliste"] .bg-white {
+  background-color: #1a1e26 !important;
+}
+
+[data-theme="survivaliste"] .bg-white\/95,
+[data-theme="survivaliste"] .bg-white\/90 {
+  background-color: rgba(26, 30, 38, 0.95) !important;
+}
+
+[data-theme="survivaliste"] .bg-slate-50\/80,
+[data-theme="survivaliste"] .bg-slate-100\/70,
+[data-theme="survivaliste"] .bg-slate-100\/80 {
+  background-color: #242a36 !important;
+}
+
+/* Bordures survivalistes */
+[data-theme="survivaliste"] .border-slate-200,
+[data-theme="survivaliste"] .border-slate-200\/80,
+[data-theme="survivaliste"] .border-slate-200\/90,
+[data-theme="survivaliste"] .border-slate-300 {
+  border-color: #384252 !important;
+}
+
+/* Typographies survivalistes */
+[data-theme="survivaliste"] .text-slate-900,
+[data-theme="survivaliste"] .text-slate-800 {
+  color: #f8fafc !important;
+}
+
+[data-theme="survivaliste"] .text-slate-700,
+[data-theme="survivaliste"] .text-slate-600 {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="survivaliste"] .text-slate-500,
+[data-theme="survivaliste"] .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+/* Accents survivalistes (Orange Signalisation Sécurité Civile) */
+[data-theme="survivaliste"] .bg-blue-600 {
+  background-color: #ea580c !important;
+}
+
+[data-theme="survivaliste"] .hover\:bg-blue-700:hover,
+[data-theme="survivaliste"] .hover\:bg-blue-500:hover {
+  background-color: #c2410c !important;
+}
+
+[data-theme="survivaliste"] .bg-blue-50 {
+  background-color: #381a0e !important;
+}
+
+[data-theme="survivaliste"] .text-blue-700,
+[data-theme="survivaliste"] .text-blue-600 {
+  color: #fb923c !important;
+}
+
+[data-theme="survivaliste"] .border-blue-200 {
+  border-color: #9a3412 !important;
+}
+
+/* Navigation et ombres */
+[data-theme="survivaliste"] .shadow-xs,
+[data-theme="survivaliste"] .shadow-sm,
+[data-theme="survivaliste"] .shadow-md {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ==========================================================================
+   SCROLLBARS DYNAMIQUES
+   ========================================================================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track, #f1f5f9);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, #cbd5e1);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   OPTIMISATION IMPRESSION A4 & PDF (FORCE BLANC/NOIR ÉCONOME EN ENCRE)
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  body, html {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:block {
+    display: block !important;
+  }
+
+  .print\:text-black {
+    color: #000000 !important;
+  }
+
+  .print\:border-black {
+    border-color: #333333 !important;
+  }
+
+  .print-page-break {
+    page-break-after: always;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid;
+  }
+
+  /* Annulation des ombres et bordures décoratives pour économiser l'encre */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}

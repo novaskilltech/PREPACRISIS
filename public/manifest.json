@@ -1,0 +1,18 @@
+{
+  "name": "PrepaCrisis - Résilience Civile",
+  "short_name": "PrepaCrisis",
+  "description": "Application autonome de préparation civile et résilience d'urgence hors-ligne",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

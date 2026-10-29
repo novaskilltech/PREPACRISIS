@@ -1,0 +1,5 @@
+{
+  "name": "PrepaCrisis Maroc - Résilience Civile",
+  "description": "Application autonome de préparation civile et résilience d'urgence hors-ligne (Foyer 8 Pax, Maroc, 14j/30j, Tank 500L, SOS, Radio).",
+  "requestFramePermissions": ["geolocation"]
+}
