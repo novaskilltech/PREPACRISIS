@@ -504,7 +504,7 @@ export default function GuidesPage() {
                 key={guide.id} 
                 onClick={() => setSelectedGuide(guide)}
                 className={`bg-white border rounded-2xl p-4 cursor-pointer hover:border-blue-400 hover:shadow-xs transition-all ${
-                  isRead ? 'border-slate-200 bg-slate-50/60' : 'border-slate-200/90'
+                  isRead ? 'border-slate-300 opacity-90' : 'border-slate-200/90'
                 }`}
               >
                 <div className="flex items-start justify-between">

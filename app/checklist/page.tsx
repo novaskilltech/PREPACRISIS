@@ -150,7 +150,7 @@ const shoppingGuideMaroc: {
   s5: {
     store: 'Pharmacie (ordonnance de renouvellement sécurisée)',
     packagingTip: 'Boîtes scellées avec notice.',
-    brandTip: 'Traitement habituel de Nadia.',
+    brandTip: 'Traitement médical habituel du membre concerné.',
   },
   s6: {
     store: 'Pharmacie',
@@ -471,7 +471,7 @@ export default function ChecklistPage() {
                   key={item.id}
                   className={`border rounded-2xl p-4 transition-all shadow-xs ${
                     item.checked
-                      ? 'bg-slate-50/70 border-slate-200 opacity-80'
+                      ? 'bg-slate-50 border-emerald-500/40 ring-1 ring-emerald-500/20'
                       : 'bg-white border-slate-200/90'
                   }`}
                 >
@@ -491,7 +491,7 @@ export default function ChecklistPage() {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200/60">
+                        <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200/60">
                           {item.category}
                         </span>
                         {item.critical && (
@@ -499,22 +499,24 @@ export default function ChecklistPage() {
                             Priorité Haute
                           </span>
                         )}
+                        {item.checked && (
+                          <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                            <Check size={11} strokeWidth={2.5} />
+                            En réserve
+                          </span>
+                        )}
                       </div>
 
-                      <h3
-                        className={`text-xs font-bold mt-1.5 leading-snug ${
-                          item.checked ? 'text-slate-400 line-through' : 'text-slate-900'
-                        }`}
-                      >
+                      <h3 className="text-xs font-bold mt-1.5 leading-snug text-slate-900">
                         {item.name}
                       </h3>
 
-                      <div className="text-xs text-blue-700 font-semibold mt-1">
+                      <div className="text-xs text-blue-700 font-bold mt-1">
                         Objectif ({mode === '14D_NOMINAL' ? '14j' : '30j'}) : {targetText}
                       </div>
 
                       {item.notes && (
-                        <p className="text-[11px] text-slate-600 mt-1.5 leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <p className="text-[11px] text-slate-700 mt-1.5 leading-relaxed bg-slate-100/70 p-2.5 rounded-xl border border-slate-200">
                           {item.notes}
                         </p>
                       )}
@@ -529,8 +531,8 @@ export default function ChecklistPage() {
                         </Link>
                       )}
 
-                      <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-slate-100">
-                        <span className="text-xs text-slate-600 font-medium">
+                      <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-slate-200">
+                        <span className="text-xs text-slate-700 font-medium">
                           En stock : <strong className="text-slate-900 font-bold">{item.quantityAcquired}</strong> / {item.targetQuantity} {item.unit}
                         </span>
                         <div className="flex items-center gap-1.5">

@@ -29,52 +29,46 @@
   color: #dce7d6 !important;
 }
 
-/* Conteneurs et cartes */
+/* Conteneurs et cartes tactiques */
+[data-theme="tactique"] .bg-white,
+[data-theme="tactique"] [class*="bg-white"] {
+  background-color: #1b2319 !important;
+}
+
 [data-theme="tactique"] .bg-slate-50,
-[data-theme="tactique"] .bg-slate-100 {
-  background-color: #121711 !important;
+[data-theme="tactique"] [class*="bg-slate-50"] {
+  background-color: #151c13 !important;
 }
 
-[data-theme="tactique"] .bg-white {
-  background-color: #1c231a !important;
-}
-
-[data-theme="tactique"] .bg-white\/95,
-[data-theme="tactique"] .bg-white\/90 {
-  background-color: rgba(28, 35, 26, 0.95) !important;
-}
-
-[data-theme="tactique"] .bg-slate-50\/80,
-[data-theme="tactique"] .bg-slate-100\/70,
-[data-theme="tactique"] .bg-slate-100\/80 {
-  background-color: #242e22 !important;
+[data-theme="tactique"] .bg-slate-100,
+[data-theme="tactique"] [class*="bg-slate-100"] {
+  background-color: #232d20 !important;
 }
 
 /* Bordures tactiques */
 [data-theme="tactique"] .border-slate-200,
-[data-theme="tactique"] .border-slate-200\/80,
-[data-theme="tactique"] .border-slate-200\/90,
+[data-theme="tactique"] [class*="border-slate-200"],
 [data-theme="tactique"] .border-slate-300 {
-  border-color: #374633 !important;
+  border-color: #384834 !important;
 }
 
-/* Typographies tactiques */
+/* Typographies tactiques haute lisibilité */
 [data-theme="tactique"] .text-slate-900,
 [data-theme="tactique"] .text-slate-800 {
-  color: #dce7d6 !important;
+  color: #f4faf2 !important;
 }
 
 [data-theme="tactique"] .text-slate-700,
 [data-theme="tactique"] .text-slate-600 {
-  color: #b5c7ae !important;
+  color: #d8e6d4 !important;
 }
 
 [data-theme="tactique"] .text-slate-500,
 [data-theme="tactique"] .text-slate-400 {
-  color: #879b81 !important;
+  color: #b5c7ae !important;
 }
 
-/* Accents tactiques (Olive Drab Militaire) */
+/* Accents tactiques (Olive Drab Militaire & Vert Clair Lisible) */
 [data-theme="tactique"] .bg-blue-600 {
   background-color: #4a683e !important;
 }
@@ -85,12 +79,12 @@
 }
 
 [data-theme="tactique"] .bg-blue-50 {
-  background-color: #253321 !important;
+  background-color: #202d1d !important;
 }
 
 [data-theme="tactique"] .text-blue-700,
 [data-theme="tactique"] .text-blue-600 {
-  color: #b9d4b0 !important;
+  color: #86efac !important;
 }
 
 [data-theme="tactique"] .border-blue-200 {
@@ -118,49 +112,43 @@
   color: #f1f5f9 !important;
 }
 
-/* Conteneurs et cartes */
+/* Conteneurs et cartes survivalistes */
+[data-theme="survivaliste"] .bg-white,
+[data-theme="survivaliste"] [class*="bg-white"] {
+  background-color: #1a202c !important;
+}
+
 [data-theme="survivaliste"] .bg-slate-50,
-[data-theme="survivaliste"] .bg-slate-100 {
-  background-color: #0f1217 !important;
+[data-theme="survivaliste"] [class*="bg-slate-50"] {
+  background-color: #131720 !important;
 }
 
-[data-theme="survivaliste"] .bg-white {
-  background-color: #1a1e26 !important;
-}
-
-[data-theme="survivaliste"] .bg-white\/95,
-[data-theme="survivaliste"] .bg-white\/90 {
-  background-color: rgba(26, 30, 38, 0.95) !important;
-}
-
-[data-theme="survivaliste"] .bg-slate-50\/80,
-[data-theme="survivaliste"] .bg-slate-100\/70,
-[data-theme="survivaliste"] .bg-slate-100\/80 {
-  background-color: #242a36 !important;
+[data-theme="survivaliste"] .bg-slate-100,
+[data-theme="survivaliste"] [class*="bg-slate-100"] {
+  background-color: #222938 !important;
 }
 
 /* Bordures survivalistes */
 [data-theme="survivaliste"] .border-slate-200,
-[data-theme="survivaliste"] .border-slate-200\/80,
-[data-theme="survivaliste"] .border-slate-200\/90,
+[data-theme="survivaliste"] [class*="border-slate-200"],
 [data-theme="survivaliste"] .border-slate-300 {
   border-color: #384252 !important;
 }
 
-/* Typographies survivalistes */
+/* Typographies survivalistes haute lisibilité */
 [data-theme="survivaliste"] .text-slate-900,
 [data-theme="survivaliste"] .text-slate-800 {
-  color: #f8fafc !important;
+  color: #ffffff !important;
 }
 
 [data-theme="survivaliste"] .text-slate-700,
 [data-theme="survivaliste"] .text-slate-600 {
-  color: #cbd5e1 !important;
+  color: #e2e8f0 !important;
 }
 
 [data-theme="survivaliste"] .text-slate-500,
 [data-theme="survivaliste"] .text-slate-400 {
-  color: #94a3b8 !important;
+  color: #cbd5e1 !important;
 }
 
 /* Accents survivalistes (Orange Signalisation Sécurité Civile) */
@@ -174,10 +162,13 @@
 }
 
 [data-theme="survivaliste"] .bg-blue-50 {
-  background-color: #381a0e !important;
+  background-color: #2c1e17 !important;
 }
 
 [data-theme="survivaliste"] .text-blue-700,
+[data-theme="survivaliste"] .text-blue-600 {
+  color: #fdba74 !important;
+}
 [data-theme="survivaliste"] .text-blue-600 {
   color: #fb923c !important;
 }

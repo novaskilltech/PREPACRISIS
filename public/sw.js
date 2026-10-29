@@ -1,9 +1,10 @@
 // PrepaCrisis Service Worker - Offline-First Resilience
-const CACHE_NAME = 'prepacrisis-v2';
+const CACHE_NAME = 'prepacrisis-v3';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
   '/icon.svg',
+  '/og-image.png',
   '/checklist',
   '/family-plan',
   '/guides',
