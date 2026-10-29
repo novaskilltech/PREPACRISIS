@@ -748,7 +748,7 @@ const defaultSupplies: SupplyItem[] = [
     targetQuantity: 1,
     unit: 'Unité',
     critical: true,
-    notes: 'Pour permettre à Karim et Youssef de descendre Aïcha rapidement.',
+    notes: 'Pour permettre aux adultes désignés de descendre rapidement les personnes à mobilité réduite.',
     checked: false,
   },
 ];
@@ -757,49 +757,15 @@ const defaultEmergencyPlan: EmergencyPlan = {
   buildingFloors: 'Immeuble R+3 (Appartement au 3e étage + Quai de stockage au RDC)',
   meetingPointPrimary: 'Quai de déchargement RDC / Porte cochère arrière',
   meetingPointSecondaryRural: 'Maison familiale en zone rurale / Périurbaine',
-  outOfZoneContactName: 'Oncle Rachid (Région Nord)',
-  outOfZoneContactPhone: '+212 611-223344',
+  outOfZoneContactName: '',
+  outOfZoneContactPhone: '',
   cashReserveDirhams: 5000,
   gasBottlesCount: 2,
-  evacuationNotes: 'Ordre de descente escalier R+3 : 1) Karim avec Aïcha (sangle portage), 2) Salma avec Kenza (enceinte), 3) Youssef avec sac d\'urgence et Nadia, 4) Amina et Leila avec radios et trousses de soins.',
+  evacuationNotes:
+    'Ordre de descente escalier R+3 : 1) Adultes désignés avec les personnes à mobilité réduite (sangle portage), 2) Membres vulnérables et enfants, 3) Sacs d\'urgence, vivres et documents vitaux, 4) Matériel radio, lampes et trousses de soins.',
 };
 
-const defaultContacts: EmergencyContact[] = [
-  {
-    id: 'c1',
-    name: 'Dr. Bennani (Médecin Généraliste)',
-    roleOrRelation: 'Suivi Asthme & Hypertension',
-    phone: '+212661001122',
-    whatsapp: '+212661001122',
-    email: 'dr.bennani.sante@gmail.com',
-    city: 'Rabat / Salé',
-  },
-  {
-    id: 'c2',
-    name: 'Rachid El Amrani (Oncle / Contact ICE)',
-    roleOrRelation: 'Contact Hors-Zone (Zone Nord)',
-    phone: '+212611223344',
-    whatsapp: '+212611223344',
-    email: 'rachid.amrani@hotmail.com',
-    city: 'Tanger',
-  },
-  {
-    id: 'c3',
-    name: 'M. Tazi (Voisin Rez-de-Chaussée)',
-    roleOrRelation: 'Surveillance Quai & Cuve 500L',
-    phone: '+212670334455',
-    whatsapp: '+212670334455',
-    city: 'Immeuble RDC',
-  },
-  {
-    id: 'c4',
-    name: 'Pharmacie de Garde Centrale',
-    roleOrRelation: 'Urgences Médicaments & SRO',
-    phone: '+212537001122',
-    whatsapp: '+212660998877',
-    city: 'Quartier',
-  },
-];
+const defaultContacts: EmergencyContact[] = [];
 
 const defaultWaterPoints: WaterPoint[] = [
   {
@@ -980,10 +946,49 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       if (savedBattery) setBattery(JSON.parse(savedBattery));
 
       const savedPlan = localStorage.getItem('prepa_plan');
-      if (savedPlan) setEmergencyPlan(JSON.parse(savedPlan));
+      if (savedPlan) {
+        try {
+          const parsed = JSON.parse(savedPlan);
+          if (
+            parsed.outOfZoneContactName?.includes('Rachid') ||
+            parsed.outOfZoneContactPhone?.includes('+212 611-223344') ||
+            parsed.evacuationNotes?.includes('Karim avec Aïcha')
+          ) {
+            parsed.outOfZoneContactName = '';
+            parsed.outOfZoneContactPhone = '';
+            parsed.evacuationNotes = defaultEmergencyPlan.evacuationNotes;
+            localStorage.setItem('prepa_plan', JSON.stringify(parsed));
+          }
+          setEmergencyPlan(parsed);
+        } catch {
+          setEmergencyPlan(defaultEmergencyPlan);
+        }
+      }
 
       const savedContacts = localStorage.getItem('prepa_contacts');
-      if (savedContacts) setContacts(JSON.parse(savedContacts));
+      if (savedContacts) {
+        try {
+          const parsed: any[] = JSON.parse(savedContacts);
+          const hasFictitious = parsed.some(
+            (c) =>
+              c.id === 'c1' ||
+              c.name?.includes('Bennani') ||
+              c.name?.includes('Rachid El Amrani') ||
+              c.name?.includes('Tazi') ||
+              c.phone?.includes('+212661001122')
+          );
+          if (hasFictitious) {
+            localStorage.removeItem('prepa_contacts');
+            setContacts([]);
+          } else {
+            setContacts(parsed);
+          }
+        } catch {
+          setContacts([]);
+        }
+      } else {
+        setContacts([]);
+      }
 
       const savedMsgs = localStorage.getItem('prepa_msgs');
       if (savedMsgs) setLocalMessages(JSON.parse(savedMsgs));

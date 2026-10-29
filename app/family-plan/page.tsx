@@ -339,26 +339,32 @@ export default function FamilyPlanPage() {
         {/* Contacts d'Urgence */}
         <div>
           <h2 className="text-xs font-bold uppercase mb-1">Carnet de Contacts d&apos;Urgence & Médecins :</h2>
-          <table className="w-full text-[10px] border-collapse border border-black">
-            <thead>
-              <tr className="bg-slate-200">
-                <th className="border border-black p-1 text-left">Nom</th>
-                <th className="border border-black p-1 text-left">Rôle / Relation</th>
-                <th className="border border-black p-1 text-left">Téléphone</th>
-                <th className="border border-black p-1 text-left">Ville</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((c) => (
-                <tr key={c.id}>
-                  <td className="border border-black p-1 font-bold">{c.name}</td>
-                  <td className="border border-black p-1">{c.roleOrRelation}</td>
-                  <td className="border border-black p-1">{c.phone}</td>
-                  <td className="border border-black p-1">{c.city || '-'}</td>
+          {contacts.length === 0 ? (
+            <p className="text-xs italic p-2 border border-black">
+              Aucun contact enregistré. Lignes réservées à l&apos;écriture manuscrite (Nom, Rôle, Tél) : __________________________________________
+            </p>
+          ) : (
+            <table className="w-full text-[10px] border-collapse border border-black">
+              <thead>
+                <tr className="bg-slate-200">
+                  <th className="border border-black p-1 text-left">Nom</th>
+                  <th className="border border-black p-1 text-left">Rôle / Relation</th>
+                  <th className="border border-black p-1 text-left">Téléphone</th>
+                  <th className="border border-black p-1 text-left">Ville</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {contacts.map((c) => (
+                  <tr key={c.id}>
+                    <td className="border border-black p-1 font-bold">{c.name}</td>
+                    <td className="border border-black p-1">{c.roleOrRelation}</td>
+                    <td className="border border-black p-1">{c.phone}</td>
+                    <td className="border border-black p-1">{c.city || '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
@@ -639,6 +645,28 @@ export default function FamilyPlanPage() {
                   Enregistrer le contact
                 </button>
               </form>
+            )}
+
+            {/* ÉTAT VIDE SI 0 CONTACT */}
+            {contacts.length === 0 && !showAddContact && (
+              <div className="bg-white border-2 border-dashed border-slate-200 rounded-3xl p-8 text-center space-y-4 shadow-xs">
+                <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto border border-blue-200 shadow-xs">
+                  <BookUser size={28} />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-sm font-bold text-slate-900">Aucun contact de secours pré-rempli</h3>
+                  <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+                    La liste est vide. Ajoutez vos proches, votre médecin de famille ou vos relais d&apos;urgence pour pouvoir les contacter rapidement en cas de besoin.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowAddContact(true)}
+                  className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold inline-flex items-center gap-2 transition-all shadow-xs"
+                >
+                  <UserPlus size={15} />
+                  <span>Ajouter un contact de secours</span>
+                </button>
+              </div>
             )}
 
             {/* LISTE DES CONTACTS */}
