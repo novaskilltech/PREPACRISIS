@@ -16,9 +16,60 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'PrépaCrisis - Résilience & Sécurité Familiale',
-  description: 'Application autonome de préparation civile et résilience familiale hors-ligne.',
+  metadataBase: new URL('https://prepacrisis.vercel.app'),
+  title: {
+    default: 'PrépaCrisis - Résilience & Sécurité Familiale Hors-Ligne',
+    template: '%s | PrépaCrisis',
+  },
+  description:
+    'Application PWA autonome de préparation civile : gestion des stocks, autonomie hydrique, défense de domicile R+3, gestion de famille personnalisée et plan d\'urgence 100% hors-ligne.',
+  keywords: [
+    'résilience civile',
+    'préparation urgence',
+    'sécurité familiale',
+    'autonomie eau',
+    'Maroc',
+    'PWA hors-ligne',
+    'gestion de crise',
+    'plan familial',
+    'défense R+3',
+  ],
+  authors: [{ name: 'Nova Squad' }],
+  creator: 'Nova Squad',
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/icon.svg' },
+    ],
+    shortcut: ['/icon.svg'],
+  },
   manifest: '/manifest.json',
+  openGraph: {
+    type: 'website',
+    locale: 'fr_FR',
+    url: 'https://prepacrisis.vercel.app',
+    siteName: 'PrépaCrisis',
+    title: 'PrépaCrisis - Résilience Civile & Sécurité Familiale d\'Urgence',
+    description:
+      'Application PWA autonome pour assurer la résilience de votre famille en situation de crise (eau, vivres, énergie, statuts des membres, défense R+3) 100% hors-ligne.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'PrépaCrisis - Application PWA de Sécurité et Résilience Familiale',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PrépaCrisis - Résilience Civile & Sécurité Familiale Hors-Ligne',
+    description:
+      'Application PWA d\'autonomie civile : stocks, eau, défense R+3, statuts des membres de la famille et fiches d\'urgence sans connexion.',
+    images: ['/og-image.png'],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',

@@ -174,7 +174,7 @@ export default function PrintSheetPage() {
               <span>4. Mission Commando Eau (30 Litres / 60 Min Total)</span>
             </h2>
             <div className="space-y-1.5 text-[11px]">
-              <p><strong>Équipe :</strong> 3 personnes valides (Karim, Youssef, Salma).</p>
+              <p><strong>Équipe :</strong> 3 personnes valides désignées du foyer.</p>
               <p><strong>Charge :</strong> 2 bouteilles de 5L par personne = 6 bouteilles = 30 Litres au total.</p>
               <p><strong>Objectif Temps :</strong> 15 min marche aller, 15 min remplissage, 25 min retour chargé = &lt; 55 minutes.</p>
               <p><strong>Points d&apos;eau prioritaires :</strong></p>

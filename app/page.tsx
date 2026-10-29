@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppContext } from '@/components/AppContext';
+import { useAppContext, FamilyMemberStatus } from '@/components/AppContext';
 import ThemeSelector from '@/components/ThemeSelector';
 import Link from 'next/link';
 import {
@@ -18,21 +18,62 @@ import {
   Baby,
   Clock,
   Printer,
+  UserPlus,
+  Check,
 } from 'lucide-react';
 
+const STATUS_PILLS: Record<
+  FamilyMemberStatus,
+  { label: string; dot: string; badge: string }
+> = {
+  SECURISE: {
+    label: 'Sécurisé',
+    dot: 'bg-emerald-500',
+    badge: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+  },
+  MISSION: {
+    label: 'En Mission',
+    dot: 'bg-blue-500 animate-pulse',
+    badge: 'bg-blue-50 text-blue-800 border-blue-200',
+  },
+  ASSISTANCE: {
+    label: 'Assistance',
+    dot: 'bg-amber-500',
+    badge: 'bg-amber-50 text-amber-800 border-amber-200',
+  },
+  URGENCE: {
+    label: 'Urgence',
+    dot: 'bg-rose-600 animate-ping',
+    badge: 'bg-rose-50 text-rose-800 border-rose-200',
+  },
+};
+
 export default function Dashboard() {
-  const { mode, setMode, score, isLoaded, supplies, waterTank, battery, members } = useAppContext();
+  const {
+    mode,
+    setMode,
+    score,
+    isLoaded,
+    supplies,
+    waterTank,
+    battery,
+    members,
+    setMemberStatus,
+  } = useAppContext();
 
   if (!isLoaded) return null;
 
-  // Calculs hydriques
-  const dailyWaterNominal = 8 * 4; // 32 L/j
-  const dailyWaterRationed = 8 * 2.5; // 20 L/j
+  // Calculs hydriques dynamiques selon le nombre réel de personnes dans le foyer
+  const memberCount = Math.max(1, members.length);
+  const dailyWaterNominal = memberCount * 4; // 4 L/j par personne
+  const dailyWaterRationed = memberCount * 2.5; // 2.5 L/j par personne
   const dailyWaterTarget = mode === '14D_NOMINAL' ? dailyWaterNominal : dailyWaterRationed;
   const daysWaterLeft = Math.floor(waterTank.currentLevelLiters / dailyWaterTarget);
 
   // Calculs énergétiques
-  const batteryDaysLeft = Math.floor((battery.capacityWh * (battery.currentPercent / 100)) / battery.dailyConsumptionWh);
+  const batteryDaysLeft = Math.floor(
+    (battery.capacityWh * (battery.currentPercent / 100)) / battery.dailyConsumptionWh
+  );
 
   // Alertes critiques
   const criticalItems = supplies.filter((s) => s.critical);
@@ -49,7 +90,12 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="text-sm font-bold tracking-tight text-slate-900">PrépaCrisis</h1>
-              <p className="text-[11px] text-slate-500 font-medium">Sécurité Familiale • 8 personnes</p>
+              <p className="text-[11px] text-slate-500 font-medium">
+                Sécurité Familiale •{' '}
+                {members.length > 0
+                  ? `${members.length} personne${members.length > 1 ? 's' : ''}`
+                  : 'Foyer à configurer'}
+              </p>
             </div>
           </div>
 
@@ -184,41 +230,87 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Priorités Santé pour les membres fragiles */}
-        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs space-y-2.5">
+        {/* Rubrique Famille & Statuts Opérationnels en Direct */}
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
-              <Heart size={16} className="text-rose-500" />
-              <span>Priorités Santé de la Famille</span>
+              <Users size={16} className="text-blue-600" />
+              <span>Statuts du Foyer ({members.length})</span>
             </div>
-            <Link href="/family-plan" className="text-xs text-blue-600 font-semibold flex items-center hover:underline">
-              Fiches santé <ArrowRight size={13} className="ml-1" />
+            <Link
+              href="/family-plan"
+              className="text-xs text-blue-600 font-semibold flex items-center hover:underline"
+            >
+              Gérer la famille <ArrowRight size={13} className="ml-1" />
             </Link>
           </div>
 
-          <div className="space-y-1.5 text-xs">
-            <div className="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-              <span className="text-slate-700 font-medium">3 Asthmatiques (Salma, Amina, Leila)</span>
-              <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
-                Ventoline + Masques
-              </span>
+          {members.length === 0 ? (
+            <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 text-center space-y-2">
+              <p className="text-xs text-slate-600 font-medium">
+                Aucun membre enregistré dans votre foyer.
+              </p>
+              <Link
+                href="/family-plan"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-2xs"
+              >
+                <UserPlus size={13} />
+                <span>Ajouter les membres réels</span>
+              </Link>
             </div>
-            <div className="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-              <span className="text-slate-700 font-medium flex items-center gap-1.5">
-                <Baby size={13} className="text-rose-500" />
-                Kenza (Enceinte 6e mois)
-              </span>
-              <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                Kit Maternité + Eau
-              </span>
+          ) : (
+            <div className="space-y-2">
+              {members.map((member) => {
+                const currentStatus = member.status || 'SECURISE';
+                const pill = STATUS_PILLS[currentStatus] || STATUS_PILLS.SECURISE;
+
+                return (
+                  <div
+                    key={member.id}
+                    className="p-2.5 bg-slate-50 border border-slate-200/80 rounded-xl flex items-center justify-between gap-2"
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-bold text-slate-900 truncate">
+                          {member.name}
+                        </span>
+                        <span className="text-[10px] text-slate-500 font-medium shrink-0">
+                          ({member.ageGroup})
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-blue-700 font-medium truncate mt-0.5">
+                        {member.role}
+                      </p>
+                    </div>
+
+                    {/* Menu rapide 1-clic pour basculer le statut */}
+                    <div className="flex items-center gap-1 shrink-0">
+                      {(Object.keys(STATUS_PILLS) as FamilyMemberStatus[]).map((st) => {
+                        const isCurrent = currentStatus === st;
+                        const itemPill = STATUS_PILLS[st];
+
+                        return (
+                          <button
+                            key={st}
+                            onClick={() => setMemberStatus(member.id, st)}
+                            title={`Passer ${member.name} en ${itemPill.label}`}
+                            className={`px-2 py-1 rounded-lg text-[10px] font-bold border transition-all flex items-center gap-1 ${
+                              isCurrent
+                                ? `${itemPill.badge} ring-1 ring-blue-400 shadow-2xs`
+                                : 'bg-white text-slate-400 border-slate-200 hover:text-slate-700 hover:bg-slate-100'
+                            }`}
+                          >
+                            <span className={`w-1.5 h-1.5 rounded-full ${itemPill.dot}`} />
+                            <span className="hidden sm:inline">{itemPill.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-            <div className="flex items-center justify-between bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-              <span className="text-slate-700 font-medium">Aïcha (Grand-mère, 72 ans)</span>
-              <span className="font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
-                Tensiomètre + Évacuation R+3
-              </span>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Modules Essentiels de la Maison */}

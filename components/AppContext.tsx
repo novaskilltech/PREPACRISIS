@@ -2,13 +2,16 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+export type FamilyMemberStatus = 'SECURISE' | 'MISSION' | 'ASSISTANCE' | 'URGENCE';
+
 export type FamilyMember = {
   id: string;
   name: string;
   gender: 'F' | 'M';
-  ageGroup: 'senior' | 'adulte' | 'enceinte' | 'ado';
+  ageGroup: 'senior' | 'adulte' | 'ado' | 'enfant' | 'bebe' | 'enceinte';
   medicalNeeds: string[];
   role: string;
+  status: FamilyMemberStatus;
   phone: string;
   isMobilityReduced: boolean;
 };
@@ -94,7 +97,11 @@ type AppContextType = {
   mode: '14D_NOMINAL' | '30D_RATIONED';
   setMode: (mode: '14D_NOMINAL' | '30D_RATIONED') => void;
   members: FamilyMember[];
+  addMember: (member: Omit<FamilyMember, 'id'>) => void;
   updateMember: (id: string, updates: Partial<FamilyMember>) => void;
+  deleteMember: (id: string) => void;
+  setMemberStatus: (id: string, status: FamilyMemberStatus) => void;
+  clearAllMembers: () => void;
   supplies: SupplyItem[];
   toggleSupplyCheck: (id: string) => void;
   updateSupplyQuantity: (id: string, quantity: number) => void;
@@ -121,88 +128,7 @@ type AppContextType = {
   score: number;
 };
 
-const defaultMembers: FamilyMember[] = [
-  {
-    id: 'm1',
-    name: 'Aïcha (Mère/Grand-mère)',
-    gender: 'F',
-    ageGroup: 'senior',
-    medicalNeeds: ['Hypertension', 'Mobilité réduite', 'Sensibilité thermique'],
-    role: 'Priorité évacuation R+3',
-    phone: '+212 600-000001',
-    isMobilityReduced: true,
-  },
-  {
-    id: 'm2',
-    name: 'Youssef',
-    gender: 'M',
-    ageGroup: 'adulte',
-    medicalNeeds: ['Douleurs articulaires moyennes'],
-    role: 'Logistique Quai & Eau',
-    phone: '+212 600-000002',
-    isMobilityReduced: false,
-  },
-  {
-    id: 'm3',
-    name: 'Salma',
-    gender: 'F',
-    ageGroup: 'adulte',
-    medicalNeeds: ['Asthme sévère (Ventoline)', 'Allergies poussières'],
-    role: 'Coordination Médicale & Santé',
-    phone: '+212 600-000003',
-    isMobilityReduced: false,
-  },
-  {
-    id: 'm4',
-    name: 'Karim',
-    gender: 'M',
-    ageGroup: 'adulte',
-    medicalNeeds: ['Aucun'],
-    role: 'Sécurité & Portage d\'eau',
-    phone: '+212 600-000004',
-    isMobilityReduced: false,
-  },
-  {
-    id: 'm5',
-    name: 'Kenza',
-    gender: 'F',
-    ageGroup: 'enceinte',
-    medicalNeeds: ['Grossesse 6e mois', 'Fer/Acide folique', 'Hydratation stricte'],
-    role: 'Priorité hydrique & repos',
-    phone: '+212 600-000005',
-    isMobilityReduced: true,
-  },
-  {
-    id: 'm6',
-    name: 'Nadia',
-    gender: 'F',
-    ageGroup: 'adulte',
-    medicalNeeds: ['Traitement dépression (suivi strict)', 'Douleurs articulaires'],
-    role: 'Gestion des stocks & cuisine',
-    phone: '+212 600-000006',
-    isMobilityReduced: false,
-  },
-  {
-    id: 'm7',
-    name: 'Amina',
-    gender: 'F',
-    ageGroup: 'ado',
-    medicalNeeds: ['Asthme modéré (Ventoline)'],
-    role: 'Veille Radio & Communications',
-    phone: '+212 600-000007',
-    isMobilityReduced: false,
-  },
-  {
-    id: 'm8',
-    name: 'Leila',
-    gender: 'F',
-    ageGroup: 'ado',
-    medicalNeeds: ['Asthme modéré (Ventoline)'],
-    role: 'Inventaire & Hygiène',
-    phone: '+212 600-000008',
-    isMobilityReduced: false,
-  },
-];
+const defaultMembers: FamilyMember[] = [];
 
 const defaultSupplies: SupplyItem[] = [
   // EAU
@@ -995,7 +921,41 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       if (savedMode) setMode(savedMode as any);
 
       const savedMembers = localStorage.getItem('prepa_members');
-      if (savedMembers) setMembers(JSON.parse(savedMembers));
+      if (savedMembers) {
+        try {
+          const parsed: any[] = JSON.parse(savedMembers);
+          // Purge systématique des anciens personnages fictifs si détectés
+          const hasFictitious = parsed.some(
+            (m) =>
+              (m.id === 'm1' && m.name?.includes('Aïcha')) ||
+              m.name === 'Youssef' ||
+              m.name === 'Karim' ||
+              m.name === 'Salma' ||
+              m.name === 'Kenza'
+          );
+          if (hasFictitious) {
+            localStorage.removeItem('prepa_members');
+            setMembers([]);
+          } else {
+            const sanitized: FamilyMember[] = parsed.map((m, idx) => ({
+              id: m.id || `m_${idx}_${Date.now()}`,
+              name: m.name || 'Membre du foyer',
+              gender: m.gender === 'F' ? 'F' : 'M',
+              ageGroup: m.ageGroup || 'adulte',
+              medicalNeeds: Array.isArray(m.medicalNeeds) ? m.medicalNeeds : [],
+              role: m.role || 'Membre de l\'unité',
+              status: m.status || 'SECURISE',
+              phone: m.phone || '',
+              isMobilityReduced: !!m.isMobilityReduced,
+            }));
+            setMembers(sanitized);
+          }
+        } catch {
+          setMembers([]);
+        }
+      } else {
+        setMembers([]);
+      }
 
       const savedSupplies = localStorage.getItem('prepa_supplies');
       if (savedSupplies) {
@@ -1087,8 +1047,32 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  const addMember = (member: Omit<FamilyMember, 'id'>) => {
+    const newMember: FamilyMember = {
+      ...member,
+      id: `m_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      status: member.status || 'SECURISE',
+    };
+    setMembers((prev) => [...prev, newMember]);
+  };
+
   const updateMember = (id: string, updates: Partial<FamilyMember>) => {
     setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, ...updates } : m)));
+  };
+
+  const deleteMember = (id: string) => {
+    setMembers((prev) => prev.filter((m) => m.id !== id));
+  };
+
+  const setMemberStatus = (id: string, status: FamilyMemberStatus) => {
+    setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, status } : m)));
+  };
+
+  const clearAllMembers = () => {
+    setMembers([]);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('prepa_members');
+    }
   };
 
   const toggleSupplyCheck = (id: string) => {
@@ -1190,7 +1174,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         mode,
         setMode,
         members,
+        addMember,
         updateMember,
+        deleteMember,
+        setMemberStatus,
+        clearAllMembers,
         supplies,
         toggleSupplyCheck,
         updateSupplyQuantity,

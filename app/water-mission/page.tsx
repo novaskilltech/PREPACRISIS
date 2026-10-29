@@ -216,7 +216,7 @@ export default function WaterMissionPage() {
               <Users size={16} className="text-blue-600 mx-auto mb-1" />
               <p className="text-[10px] text-slate-500 uppercase">Équipe</p>
               <p className="text-xs font-bold text-slate-900">3 Personnes</p>
-              <p className="text-[10px] text-slate-500">Karim, Youssef, Salma</p>
+              <p className="text-[10px] text-slate-500">3 adultes valides</p>
             </div>
             <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
               <Droplets size={16} className="text-blue-600 mx-auto mb-1" />
@@ -529,7 +529,7 @@ export default function WaterMissionPage() {
               </span>
               <p className="font-bold text-slate-900 mt-1">1 minute à gros bouillons</p>
               <p className="text-[11px] text-slate-500 mt-0.5">
-                Sur le poêle à bois pour Kenza (enceinte) et Aïcha.
+                Sur le poêle à bois pour les personnes fragiles et nourrissons.
               </p>
             </div>
           </div>

@@ -339,14 +339,14 @@ export default function SiegePage() {
             <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
               <strong className="text-slate-900 block">2. La Cage d&apos;Escalier :</strong>
               <p className="mt-0.5 leading-relaxed text-slate-600">
-                Détecteur de mouvement au bas des marches qui sonne au 3e étage. En cas d&apos;intrusion, Karim et Youssef restent en haut : <strong>jet de gel poivre OC à 5 mètres</strong> et <strong>lampe stroboscopique 2000 lumens</strong> pour aveugler sans contact physique.
+                Détecteur de mouvement au bas des marches qui sonne au 3e étage. En cas d&apos;intrusion, l&apos;équipe de défense reste en haut : <strong>jet de gel poivre OC à 5 mètres</strong> et <strong>lampe stroboscopique 2000 lumens</strong> pour aveugler sans contact physique.
               </p>
             </div>
 
             <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
               <strong className="text-slate-900 block">3. Le 3e Étage (Refuge Familial) :</strong>
               <p className="mt-0.5 leading-relaxed text-slate-600">
-                Porte palière verrouillée. Kenza (enceinte) et Aïcha (grand-mère) restent dans la chambre arrière, la plus calme et éloignée de la rue.
+                Porte palière verrouillée. Les enfants, personnes vulnérables et aînés restent dans la chambre arrière, la plus calme et éloignée de la rue.
               </p>
             </div>
           </div>
@@ -399,7 +399,7 @@ export default function SiegePage() {
               {
                 id: 'gel_poivre_torches_r3',
                 label: 'Placer le Gel Poivre et lampes torches en haut des marches',
-                sub: 'Prêt pour Karim et Youssef pour neutraliser à distance',
+                sub: 'Prêt pour l\'équipe de veille pour neutraliser à distance',
               },
               {
                 id: 'blackout_fenetres',
@@ -412,8 +412,8 @@ export default function SiegePage() {
                 sub: 'Évite les colonnes de fumée visibles en plein jour',
               },
               {
-                id: 'chambre_repli_kenza_aicha',
-                label: 'Aménager la chambre arrière pour Kenza et Aïcha',
+                id: 'chambre_repli_vulnrables',
+                label: 'Aménager la chambre arrière pour les membres vulnérables',
                 sub: 'Espace le plus sécurisé et à l\'abri du bruit de la rue',
               },
             ].map((task) => (

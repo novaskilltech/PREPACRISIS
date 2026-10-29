@@ -316,7 +316,7 @@ Compte tenu du foyer (femmes, adolescentes, femme enceinte, personne âgée), il
 
 ### C. Sifflets Métalliques 120 dB (1 pour chaque membre)
 - Chaque femme et enfant porte un sifflet de survie en métal autour du cou.
-- En cas de danger ou de détresse dans n'importe quelle pièce, 3 coups de sifflet stridents alertent Karim et Youssef instantanément.
+- En cas de danger ou de détresse dans n'importe quelle pièce, 3 coups de sifflet stridents alertent les adultes de veille instantanément.
 
 ---
 
